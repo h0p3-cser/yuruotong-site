@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>于若桐 | Adventure-X 高！级！招！募！</title>
+    <style>
+        :root {
+            --primary-red: #D32F2F;
+            --light-red: #FFEBEE;
+            --dark-text: #212121;
+            --gray-text: #555555;
+            --bg-white: #FFFFFF;
+            --bg-gray: #FAFAFA;
+            --border-radius: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-white);
+            color: var(--dark-text);
+            line-height: 1.7;
+        }
+
+        /* 增加容器宽度 */
+        .container {
+            max-width: 900px; 
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        section { padding: 50px 0; border-bottom: 1px solid #eee; }
+        section:last-child { border-bottom: none; }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 28px;
+            background-color: var(--primary-red);
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+
+        /* === HERO SECTION (Top) === */
+        .hero {
+            background: linear-gradient(180deg, #fff 0%, var(--light-red) 100%);
+            padding-top: 60px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 长方形大头像区域 */
+        .avatar-placeholder {
+            width: 240px;  /* 更宽 */
+            height: 320px; /* 更高，长方形 */
+            border-radius: 12px;
+            border: 4px solid var(--primary-red);
+            background-color: #ddd;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.2);
+            /* 替换图片链接 */
+            background-image: url('809a25c6edc8bffaef95347558a1e71f.jpg'); 
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero-info {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            margin-bottom: 15px;
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--primary-red);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        /* === CONTENT BLOCKS === */
+        .content-block {
+            background: var(--bg-gray);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary-red);
+        }
+
+        .content-block h3 {
+            font-size: 1.3rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .content-block p, .content-block li {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        /* === JOJO RADAR CHART === */
+        .radar-section {
+            background-color: #222;
+            color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .radar-wrapper {
+            width: 320px;
+            height: 320px;
+            flex-shrink: 0;
+        }
+
+        .radar-label { fill: #fff; font-size: 12px; font-weight: bold; text-anchor: middle; }
+        .radar-grade { fill: var(--primary-red); font-size: 14px; font-weight: 900; text-anchor: middle; }
+        .radar-data-poly { fill: rgba(211, 47, 47, 0.7); stroke: var(--primary-red); stroke-width: 2; }
+        .radar-axis { stroke: #555; stroke-width: 1; }
+
+        /* === SKILLS (Big & Bold) === */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .skill-card {
+            background: white;
+            border: 2px solid var(--primary-red);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 200px;
+            transition: transform 0.2s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.15);
+        }
+
+        .skill-name {
+            display: block;
+            font-size: 1.4rem; /* 字体变大 */
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .skill-level {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        /* === TIMELINE === */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #ddd;
+        }
+
+        .tl-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary-red);
+        }
+
+        .tl-title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .tl-desc {
+            font-size: 1rem;
+            color: var(--gray-text);
+            line-height: 1.6;
+        }
+
+        /* === INTERESTS GRID === */
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .int-card {
+            background: var(--light-red);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(211, 47, 47, 0.1);
+        }
+
+        .int-card strong {
+            display: block;
+            color: var(--primary-red);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .int-card p {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            color: #999;
+            font-size: 0.9rem;
+            background-color: #fafafa;
+        }
+
+        /* Animation */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        @media (min-width: 768px) {
+            .hero-content {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .hero-text {
+                padding-top: 20px;
+                flex: 1;
+            }
+            .hero-tags {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Header -->
+    <header class="hero">
+        <div class="container hero-content">
+            <!-- 长方形大照片区域 -->
+            <div class="avatar-placeholder"></div>
+            
+            <div class="hero-text">
+                <h1>于若桐</h1>
+                <p class="hero-info">Adventure-X 选手 / 16岁 / 男生 / 人大附中高中生</p>
+                <div class="hero-tags">
+                    <span class="tag">黑客松组队中</span>
+                    <span class="tag">我是人类</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Idea & Recruitment -->
+        <section class="fade-in">
+            <h2>Idea & 组队偏好</h2>
+            <div class="content-block">
+                <h3> Idea</h3>
+                <p>有关沙漠农业相关的机器人/无人机，尤其针对新疆等地区的农业，解决采收/灌溉问题；本人是新疆人，平时有关注一些家乡的农业之类的东西。欢迎队员提出自己的想法</p>
+            </div>
+            <div class="content-block">
+                <h3> 组队偏好</h3>
+                <p>欢迎任何类型的队友和我组队！！尤其欢迎硬件技术大佬：）（本人工程能力一般，手跟不上脑子😭）</p>
+            </div>
+        </section>
+
+        <!-- Ability Panel -->
+        <section class="fade-in">
+            <h2>能力面板 </h2>
+            <div class="radar-section">
+                <div class="radar-wrapper">
+                    <svg viewBox="0 0 300 300" width="100%" height="100%">
+                        <!-- 7 Axes Heptagon -->
+                        <!-- P1(Top): 150,50 | P2: 228,87 | P3: 247,172 | P4: 193,240 | P5: 106,240 | P6: 52,172 | P7: 71,87 -->
+                        
+                        <!-- Grid -->
+                        <polygon points="150,50 228,87 247,172 193,240 106,240 52,172 71,87" fill="none" stroke="#444" stroke-width="1"/>
+                        <polygon points="150,110 181,124 189,157 150,185 111,157 103,124 150,110" fill="none" stroke="#444" stroke-width="1"/>
+                        
+                        <!-- Axes Lines -->
+                        <line x1="150" y1="150" x2="150" y2="50" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="228" y2="87" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="247" y2="172" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="193" y2="240" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="106" y2="240" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="52" y2="172" class="radar-axis"/>
+                        <line x1="150" y1="150" x2="71" y2="87" class="radar-axis"/>
+
+                        <!-- Data Polygon (C,C,A,A,B,B,A) -> (30,30,80,80,55,55,80) -->
+                        <!-- P1(30): 150,120 | P2(30): 173,131 | P3(80): 227,167 | P4(80): 184,222 | P5(55): 126,199 | P6(55): 96,162 | P7(80): 87,100 -->
+                        <polygon points="150,120 173,131 227,167 184,222 126,199 96,162 87,100" class="radar-data-poly"/>
+
+                        <!-- Labels -->
+                        <text x="150" y="35" class="radar-label">软件工程综合实力</text><text x="150" y="110" class="radar-grade">C</text>
+                        <text x="245" y="75" class="radar-label">硬件工程综合实力</text><text x="185" y="120" class="radar-grade">C</text>
+                        <text x="260" y="175" class="radar-label">设计/脑洞</text><text x="235" y="160" class="radar-grade">A</text>
+                        <text x="193" y="255" class="radar-label">熬夜耐力</text><text x="190" y="230" class="radar-grade">A</text>
+                        <text x="106" y="255" class="radar-label">理论知识   </text><text x="115" y="230" class="radar-grade">B</text>
+                        <text x="40" y="175" class="radar-label">工具熟练度</text><text x="85" y="160" class="radar-grade">B</text>
+                        <text x="55" y="75" class="radar-label">演讲/沟通能力</text><text x="75" y="90" class="radar-grade">A</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="fade-in">
+            <h2>技能列表</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <span class="skill-name">Python</span>
+                    <span class="skill-level">比较熟练</span>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-name">Java</span>
+                    <span class="skill-level">生疏</span>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-name">机器学习</span>
+                    <span class="skill-level">比较精通</span>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-name">嵌入式开发</span>
+                    <span class="skill-level">比较生疏</span>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-name">其他特长</span>
+                    <span class="skill-level">会画画，擅长演讲</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume -->
+        <section class="fade-in">
+            <h2>履历</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-title">公益装机服务 (4年)</div>
+                    <div class="tl-desc">提供4年公益装机服务，营业额超过10万元，盈利0元。海淀黄庄最强售后。</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">FRC/FTC 机器人战队结构工程师</div>
+                    <div class="tl-desc">随队打入中国区FTC总决赛</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">学校MEC商赛队伍产品技术工程师</div>
+                    <div class="tl-desc">设计开发一款根据眨眼频次推算眼干程度的低成本健康眼镜，成本仅60元</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">个人小型科研1: 无人机林火遥感监测 CV 模型优化</div>
+                    <div class="tl-desc">尝试修复了无人机林火遥感监测CV模型不能区分火焰纹理和湖面反光的问题——基于yolo与纹理非线性拟合（有github）</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">个人小型科研2: 政策影响分析 Agent</div>
+                    <div class="tl-desc">构建了一个agent用于政策影响分析，实现自动搜索+推理，生成政策影响社会群体的影响链条，并使用神经网络和BGE语义向量化学习推理链条的语义漂移规律，实现自停止系统。（正在写论文）</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section class="fade-in">
+            <h2>一些关于我的事情</h2>
+            <div class="interest-grid">
+                <div class="int-card">
+                    <strong>动漫/漫画</strong>
+                    <p>最喜欢的动漫是《彻夜之歌》，最喜欢的漫画是《不死不幸》，看火影 咒术 鬼灭 jojo 刃牙 长瀞同学</p>
+                </div>
+                <div class="int-card">
+                    <strong>性格</strong>
+                    <p>冷静，温和，除了打火影忍者手游时以外基本都不会红温</p>
+                </div>
+                <div class="int-card">
+                    <strong>音乐偏好</strong>
+                    <p>喜欢听日摇/日流/中西部情绪，中文最爱听周杰伦</p>
+                </div>
+                <div class="int-card">
+                    <strong>电竞！！！</strong>
+                    <p>创办了CS2 黄庄major电竞锦标赛，后与同学共同创立了BHML高中电竞联赛，吸引超过10所高中的Counter-Strike战队参加</p>
+                </div>
+                <div class="int-card">
+                    <strong>运动</strong>
+                    <p>长跑爱好者，最喜欢的跑鞋是 李宁飞电5 elite</p>
+                </div>
+                <div class="int-card">
+                    <strong>游戏库</strong>
+                    <p>我是网瘾少年，我们绝对有共同话题：明日之后8年老玩家，我的世界10年玩家，CS2 670h B+，全成就通关逃离后室，玩过塔科夫和暗区突围，玩野炊王泪，火影忍者北京市第4金鸣</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2024 于若桐 | Adventure-X Candidate</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
