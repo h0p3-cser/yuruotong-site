@@ -273,6 +273,34 @@
             color: #444;
         }
 
+        /* === GALLERY === */
+        .gallery-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .gallery-row a {
+            flex: 0 1 180px;
+            display: block;
+            border-radius: 6px;
+            overflow: hidden;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .gallery-row a:hover {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+
+        .gallery-row img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
         footer {
             text-align: center;
             padding: 50px 0;
@@ -470,6 +498,16 @@
                     <strong>游戏库</strong>
                     <p>我是网瘾少年，我们绝对有共同话题：明日之后8年老玩家，我的世界10年玩家，CS2 670h B+，全成就通关逃离后室，玩过塔科夫和暗区突围，玩野炊王泪，火影忍者北京市第4金鸣</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="fade-in">
+            <h2>作品</h2>
+            <div class="gallery-row">
+                <a href="bhml.jpg" target="_blank"><img src="bhml.jpg" alt="BHML海报"></a>
+                <a href="电台.jpg" target="_blank"><img src="电台.jpg" alt="深夜电台"></a>
+                <a href="画3.jpg" target="_blank"><img src="画3.jpg" alt="作品3"></a>
             </div>
         </section>
     </div>
