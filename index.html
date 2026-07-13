@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>于若桐 | Adventure-X 高！级！招！募！</title>
+    <title>于若桐 | Adventure-X 个人信息页</title>
     <style>
         :root {
             --primary-red: #D32F2F;
@@ -133,16 +133,6 @@
             color: #333;
             margin-bottom: 10px;
         }
-
-        .content-block a {
-            color: var(--primary-red);
-            font-weight: 600;
-            text-decoration: none;
-            word-break: break-all;
-        }
-        .content-block a:hover {
-            text-decoration: underline;
-        }
         
         ul { padding-left: 20px; }
         li { margin-bottom: 8px; }
@@ -247,15 +237,6 @@
             line-height: 1.6;
         }
 
-        .tl-img {
-            display: block;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid #eee;
-        }
-        .tl-img-medium { max-width: 300px; }
-        .tl-img-small { max-width: 180px; }
-
         /* === INTERESTS GRID === */
         .interest-grid {
             display: grid;
@@ -280,37 +261,6 @@
         .int-card p {
             font-size: 0.95rem;
             color: #444;
-        }
-
-        /* === GALLERY === */
-        .gallery-row {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .gallery-row a {
-            flex: 0 1 180px;
-            display: block;
-            border-radius: 6px;
-            overflow: hidden;
-            opacity: 0.85;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .gallery-row a.gallery-large {
-            flex: 0 1 240px;
-        }
-        .gallery-row a:hover {
-            opacity: 1;
-            transform: scale(1.03);
-        }
-
-        .gallery-row img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 6px;
         }
 
         footer {
@@ -352,11 +302,9 @@
             <div class="hero-text">
                 <h1>于若桐</h1>
                 <p class="hero-info">Adventure-X 选手 / 16岁 / 男生 / 人大附中高中生</p>
-                <p class="hero-info">微信号：fishfishfish_091214</p>
                 <div class="hero-tags">
-                    <span class="tag">黑客松组队中</span>
+                    <span class="tag">Adventure-X队伍已满员（4/4）</span>
                     <span class="tag">我是人类</span>
-                    <span class="tag">大脑已接入Deepseek API</span>
                 </div>
             </div>
         </div>
@@ -366,14 +314,14 @@
         
         <!-- Idea & Recruitment -->
         <section class="fade-in">
-            <h2>Idea & 组队偏好</h2>
+            <h2>Idea </h2>
             <div class="content-block">
                 <h3> Idea</h3>
                 <p>有关沙漠农业相关的机器人/无人机，尤其针对新疆等地区的农业，解决采收/灌溉问题；本人是新疆人，平时有关注一些家乡的农业之类的东西。欢迎队员提出自己的想法</p>
             </div>
             <div class="content-block">
                 <h3> 组队偏好</h3>
-                <p>欢迎任何类型的队友和我组队！！尤其欢迎硬件技术大佬：）（本人工程能力一般，手跟不上脑子😭）</p>
+                <p>队伍已满员（4/4）</p>
             </div>
         </section>
 
@@ -413,11 +361,10 @@
                         <text x="55" y="75" class="radar-label">演讲/沟通能力</text><text x="75" y="90" class="radar-grade">A</text>
                     </svg>
                 </div>
-                <div class="radar-type-text">
-                    <span style="font-size:1.5rem; font-weight:800; color:#fff;">综合类型：嘉豪</span>
-                </div>
             </div>
         </section>
+
+        <!-- Skills -->
         <section class="fade-in">
             <h2>技能列表</h2>
             <div class="skills-container">
@@ -438,10 +385,6 @@
                     <span class="skill-level">比较生疏</span>
                 </div>
                 <div class="skill-card">
-                    <span class="skill-name">零件建模与3D打印</span>
-                    <span class="skill-level">比较熟练</span>
-                </div>
-                <div class="skill-card">
                     <span class="skill-name">其他特长</span>
                     <span class="skill-level">会画画，擅长演讲</span>
                 </div>
@@ -455,36 +398,23 @@
                 <div class="tl-item">
                     <div class="tl-title">公益装机服务 (4年)</div>
                     <div class="tl-desc">提供4年公益装机服务，营业额超过10万元，盈利0元。海淀黄庄最强售后。</div>
-                    <img class="tl-img tl-img-small" src="装机1.jpg" alt="装机1">
-                    <img class="tl-img tl-img-small" src="装机2.jpg" alt="装机2">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">FRC/FTC 机器人战队结构工程师</div>
                     <div class="tl-desc">随队打入中国区FTC总决赛</div>
-                    <img class="tl-img tl-img-medium" src="frc.jpg" alt="FRC/FTC">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">学校MEC商赛队伍产品技术工程师</div>
                     <div class="tl-desc">设计开发一款根据眨眼频次推算眼干程度的低成本健康眼镜，成本仅60元</div>
-                    <img class="tl-img tl-img-small" src="mec.jpg" alt="MEC眼镜">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">个人小型科研1: 无人机林火遥感监测 CV 模型优化</div>
                     <div class="tl-desc">尝试修复了无人机林火遥感监测CV模型不能区分火焰纹理和湖面反光的问题——基于yolo与纹理非线性拟合（有github）</div>
-                    <img class="tl-img tl-img-small" src="cv.jpg" alt="CV模型">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">个人小型科研2: 政策影响分析 Agent</div>
                     <div class="tl-desc">构建了一个agent用于政策影响分析，实现自动搜索+推理，生成政策影响社会群体的影响链条，并使用神经网络和BGE语义向量化学习推理链条的语义漂移规律，实现自停止系统。（正在写论文）</div>
                 </div>
-            </div>
-        </section>
-
-        <!-- GitHub -->
-        <section class="fade-in">
-            <h2>GitHub</h2>
-            <div class="content-block">
-                <p><a href="https://github.com/h0p3-cser" target="_blank">https://github.com/h0p3-cser</a></p>
             </div>
         </section>
 
@@ -518,22 +448,10 @@
                 </div>
             </div>
         </section>
-
-        <!-- Gallery -->
-        <section class="fade-in">
-            <h2>作品</h2>
-            <div class="gallery-row">
-                <a href="bhml.jpg" target="_blank"><img src="bhml.jpg" alt="BHML海报"></a>
-                <a href="电台.jpg" target="_blank"><img src="电台.jpg" alt="深夜电台"></a>
-                <a href="画3.jpg" target="_blank"><img src="画3.jpg" alt="作品3"></a>
-                <a href="画作4.jpg" target="_blank"><img src="画作4.jpg" alt="作品4"></a>
-                <a href="画作5.jpg" target="_blank" class="gallery-large"><img src="画作5.jpg" alt="作品5"></a>
-            </div>
-        </section>
     </div>
 
     <footer>
-        <p>© 2024 于若桐 | Adventure-X Candidate</p>
+        <p>© 2026 于若桐 | Adventure-X Candidate</p>
     </footer>
 
     <script>
