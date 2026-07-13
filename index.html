@@ -247,6 +247,15 @@
             line-height: 1.6;
         }
 
+        .tl-img {
+            display: block;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+        .tl-img-medium { max-width: 300px; }
+        .tl-img-small { max-width: 180px; }
+
         /* === INTERESTS GRID === */
         .interest-grid {
             display: grid;
@@ -446,14 +455,17 @@
                 <div class="tl-item">
                     <div class="tl-title">FRC/FTC 机器人战队结构工程师</div>
                     <div class="tl-desc">随队打入中国区FTC总决赛</div>
+                    <img class="tl-img tl-img-medium" src="frc.jpg" alt="FRC/FTC">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">学校MEC商赛队伍产品技术工程师</div>
                     <div class="tl-desc">设计开发一款根据眨眼频次推算眼干程度的低成本健康眼镜，成本仅60元</div>
+                    <img class="tl-img tl-img-small" src="mec.jpg" alt="MEC眼镜">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">个人小型科研1: 无人机林火遥感监测 CV 模型优化</div>
                     <div class="tl-desc">尝试修复了无人机林火遥感监测CV模型不能区分火焰纹理和湖面反光的问题——基于yolo与纹理非线性拟合（有github）</div>
+                    <img class="tl-img tl-img-small" src="cv.jpg" alt="CV模型">
                 </div>
                 <div class="tl-item">
                     <div class="tl-title">个人小型科研2: 政策影响分析 Agent</div>
