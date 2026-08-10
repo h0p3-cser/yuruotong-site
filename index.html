@@ -256,6 +256,43 @@
         .tl-img-medium { max-width: 300px; }
         .tl-img-small { max-width: 180px; }
 
+        .tl-research-title {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .tl-pdf-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--primary-red);
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--primary-red);
+            padding: 4px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tl-pdf-link:hover {
+            background: var(--primary-red);
+            color: #fff;
+        }
+
+        .tl-research-imgs {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .tl-research-imgs img {
+            max-width: 260px;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
         /* === INTERESTS GRID === */
         .interest-grid {
             display: grid;
@@ -404,36 +441,6 @@
                 </div>
             </div>
         </section>
-        <section class="fade-in">
-            <h2>技能列表</h2>
-            <div class="skills-container">
-                <div class="skill-card">
-                    <span class="skill-name">Python</span>
-                    <span class="skill-level">比较熟练</span>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-name">Java</span>
-                    <span class="skill-level">生疏</span>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-name">机器学习</span>
-                    <span class="skill-level">比较精通</span>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-name">嵌入式开发</span>
-                    <span class="skill-level">比较生疏</span>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-name">零件建模与3D打印</span>
-                    <span class="skill-level">比较熟练</span>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-name">其他特长</span>
-                    <span class="skill-level">会画画，擅长演讲</span>
-                </div>
-            </div>
-        </section>
-
         <!-- Resume -->
         <section class="fade-in">
             <h2>履历</h2>
@@ -455,13 +462,13 @@
                     <img class="tl-img tl-img-small" src="mec.jpg" alt="MEC眼镜">
                 </div>
                 <div class="tl-item">
-                    <div class="tl-title">个人小型科研1: 无人机林火遥感监测 CV 模型优化</div>
-                    <div class="tl-desc">尝试修复了无人机林火遥感监测CV模型不能区分火焰纹理和湖面反光的问题——基于yolo与纹理非线性拟合（有github）</div>
-                    <img class="tl-img tl-img-small" src="cv.jpg" alt="CV模型">
-                </div>
-                <div class="tl-item">
-                    <div class="tl-title">个人小型科研2: 政策影响分析 Agent</div>
-                    <div class="tl-desc">构建了一个agent用于政策影响分析，实现自动搜索+推理，生成政策影响社会群体的影响链条，并使用神经网络和BGE语义向量化学习推理链条的语义漂移规律，实现自停止系统。（正在写论文）</div>
+                    <div class="tl-title">个人科研</div>
+                    <div class="tl-research-title">全英文论文：《Geometry Reveal Causality: Detecting Reasoning Hallucination in Long-Chain LLM Reasoning via Multi-Component Contextual Anchor in Embedding Space and Machine Learning》</div>
+                    <a class="tl-pdf-link" href="ML_于若桐_论文_副本.pdf" target="_blank">翻阅论文 PDF</a>
+                    <div class="tl-research-imgs">
+                        <img src="论文图1.jpg" alt="论文图1">
+                        <img src="论文图2.jpg" alt="论文图2">
+                    </div>
                 </div>
             </div>
         </section>
@@ -471,6 +478,7 @@
             <h2>GitHub</h2>
             <div class="content-block">
                 <p><a href="https://github.com/h0p3-cser" target="_blank">https://github.com/h0p3-cser</a></p>
+                <img src="首页截图.jpg" alt="GitHub主页" style="max-width:320px; display:block; margin-top:12px; border-radius:6px; border:1px solid #eee;">
             </div>
         </section>
 
@@ -483,10 +491,6 @@
                     <p>最喜欢的动漫是《彻夜之歌》，最喜欢的漫画是《不死不幸》，看火影 咒术 鬼灭 jojo 刃牙 长瀞同学</p>
                 </div>
                 <div class="int-card">
-                    <strong>性格</strong>
-                    <p>冷静，温和，除了打火影忍者手游时以外基本都不会红温</p>
-                </div>
-                <div class="int-card">
                     <strong>音乐偏好</strong>
                     <p>喜欢听日摇/日流/中西部情绪，中文最爱听周杰伦</p>
                 </div>
@@ -497,10 +501,6 @@
                 <div class="int-card">
                     <strong>运动</strong>
                     <p>长跑爱好者，最喜欢的跑鞋是 李宁飞电5 elite</p>
-                </div>
-                <div class="int-card">
-                    <strong>游戏库</strong>
-                    <p>我是网瘾少年，我们绝对有共同话题：明日之后8年老玩家，我的世界10年玩家，CS2 670h B+，全成就通关逃离后室，玩过塔科夫和暗区突围，玩野炊王泪，火影忍者北京市第4金鸣</p>
                 </div>
             </div>
         </section>
