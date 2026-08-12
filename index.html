@@ -1,655 +1,904 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>于若桐 | 个人主页</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Noto+Sans+SC:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #05050f;
-            --bg-card: #0a0a1a;
-            --bg-card-alt: #0f0f20;
-            --neon-cyan: #00f0ff;
-            --neon-pink: #ff2d95;
-            --neon-purple: #b44dff;
-            --neon-blue: #0066ff;
-            --neon-green: #39ff14;
-            --text-primary: #e0e0f0;
-            --text-dim: #7a7a9a;
-            --border-glow: rgba(0,240,255,0.3);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>// YU.RUOTONG // 个人档案 // v2.077</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+SC:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#03030a;
+  --bg-card:rgba(8,12,28,0.78);
+  --bg-card-2:rgba(12,18,40,0.78);
+  --line:rgba(0,240,255,0.18);
+  --line-strong:rgba(0,240,255,0.45);
+  --cyan:#00f0ff;
+  --pink:#ff2d95;
+  --purple:#b44dff;
+  --yellow:#ffe600;
+  --green:#39ff14;
+  --red:#ff3344;
+  --txt:#d6dbf0;
+  --txt-dim:#6c7396;
+  --txt-mute:#3e4360;
+}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  background:var(--bg-deep);
+  color:var(--txt);
+  line-height:1.7;
+  overflow-x:hidden;
+  min-height:100vh;
+  cursor:crosshair;
+}
 
-        body {
-            font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+/* === background layers === */
+#matrix{position:fixed;inset:0;z-index:0;opacity:0.45}
+.scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,240,255,0.025) 2px,rgba(0,240,255,0.025) 3px);
+  mix-blend-mode:screen;
+}
+.noise{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0.06;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0.94  0 0 0 0 1  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:noiseShift 0.4s steps(4) infinite;
+}
+@keyframes noiseShift{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-1%)}75%{transform:translate(-1%,2%)}100%{transform:translate(0,0)}}
 
-        body::before {
-            content: '';
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background:
-                radial-gradient(ellipse at 20% 0%, rgba(0,240,255,0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 100%, rgba(255,45,149,0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(180,77,255,0.03) 0%, transparent 60%);
-            pointer-events: none; z-index: 0;
-        }
+.vignette{position:fixed;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.7) 100%);
+}
 
-        body::after {
-            content: '';
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,240,255,0.015) 2px, rgba(0,240,255,0.015) 4px);
-            pointer-events: none; z-index: 0;
-        }
+/* === HUD frame === */
+.hud-frame{position:fixed;inset:0;z-index:4;pointer-events:none}
+.hud-frame::before,.hud-frame::after,
+.hud-frame > i{content:'';position:absolute;width:38px;height:38px;border:1px solid var(--line-strong)}
+.hud-frame::before{top:18px;left:18px;border-right:none;border-bottom:none}
+.hud-frame::after{top:18px;right:18px;border-left:none;border-bottom:none}
+.hud-frame > i.c1{bottom:18px;left:18px;border-right:none;border-top:none}
+.hud-frame > i.c2{bottom:18px;right:18px;border-left:none;border-top:none}
 
-        /* Circuit grid overlay */
-        .circuit-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image:
-                linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none; z-index: 0;
-        }
+/* === top status bar === */
+.statusbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 70px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:1.5px;
+  background:linear-gradient(180deg,rgba(0,240,255,0.08),transparent);
+  border-bottom:1px solid var(--line);
+  color:var(--cyan);
+  text-shadow:0 0 8px rgba(0,240,255,0.5);
+  pointer-events:none;
+}
+.statusbar .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);margin-right:6px;animation:blink 1.4s infinite}
+.statusbar .seg{display:flex;gap:18px;align-items:center}
+.statusbar .dim{color:var(--txt-dim);text-shadow:none}
+@keyframes blink{50%{opacity:0.3}}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 30px;
-            position: relative; z-index: 1;
-        }
+/* === boot screen === */
+.boot{position:fixed;inset:0;z-index:9999;background:#03030a;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.6s,visibility 0.6s}
+.boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-logo{font-family:'Orbitron',sans-serif;font-size:2.4rem;font-weight:900;letter-spacing:14px;color:var(--cyan);text-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,240,255,0.5);margin-bottom:30px;animation:glitchLogo 1.6s infinite}
+.boot-log{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--txt-dim);width:480px;max-width:80vw;height:200px;overflow:hidden;text-align:left;line-height:1.7}
+.boot-log .ok{color:var(--green)}
+.boot-log .warn{color:var(--yellow)}
+.boot-bar{margin-top:24px;width:300px;height:3px;background:rgba(0,240,255,0.1);position:relative;overflow:hidden}
+.boot-bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:bootScan 1.4s linear infinite}
+@keyframes bootScan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes glitchLogo{
+  0%,100%{text-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,240,255,0.5)}
+  20%{text-shadow:-2px 0 var(--pink),2px 0 var(--cyan),0 0 30px rgba(255,45,149,0.6)}
+  40%{text-shadow:2px 0 var(--pink),-2px 0 var(--cyan),0 0 30px rgba(0,240,255,0.6)}
+  60%{text-shadow:0 0 25px var(--purple),0 0 50px rgba(180,77,255,0.6)}
+}
 
-        section {
-            padding: 50px 0;
-            margin-bottom: 10px;
-            position: relative;
-        }
+/* === layout === */
+.wrap{max-width:920px;margin:0 auto;padding:0 28px;position:relative;z-index:5}
+section{padding:60px 0 30px;position:relative}
 
-        h2 {
-            font-family: 'Orbitron', 'Rajdhani', sans-serif;
-            font-size: 1.6rem;
-            color: var(--neon-cyan);
-            margin-bottom: 30px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(0,240,255,0.5), 0 0 60px rgba(0,240,255,0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        h2::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 24px;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 12px var(--neon-cyan), 0 0 30px rgba(0,240,255,0.6);
-            border-radius: 2px;
-        }
+/* === section title === */
+.stitle{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.78rem;
+  font-weight:700;
+  letter-spacing:6px;
+  color:var(--cyan);
+  margin-bottom:30px;
+  display:flex;align-items:center;gap:14px;
+  text-shadow:0 0 10px rgba(0,240,255,0.4);
+  text-transform:uppercase;
+}
+.stitle::before{content:'>';color:var(--pink);text-shadow:0 0 8px var(--pink)}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)}
+.stitle .num{font-family:'Share Tech Mono',monospace;color:var(--pink);font-size:0.85rem}
+.stitle .cn{display:none;color:var(--txt-dim);font-weight:500;letter-spacing:4px;margin-left:auto;font-family:'Noto Sans SC',sans-serif}
 
-        /* === HERO === */
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-            position: relative;
-        }
+/* === HERO === */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:90px 0 60px;
+  position:relative;
+}
+.hero-inner{
+  display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center;
+  width:100%;
+}
+.avatar{
+  position:relative;
+  width:240px;height:240px;
+}
+.avatar-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px solid var(--cyan);
+  box-shadow:0 0 25px rgba(0,240,255,0.5),inset 0 0 30px rgba(0,240,255,0.2);
+  animation:ringPulse 3s ease-in-out infinite;
+}
+.avatar-ring.r2{inset:-12px;border:1px dashed rgba(255,45,149,0.5);animation:ringSpin 12s linear infinite;box-shadow:none}
+.avatar-ring.r3{inset:-22px;border:1px solid rgba(180,77,255,0.25);box-shadow:none}
+.avatar-ring.r3::before{content:'';position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0deg,var(--cyan) 30deg,transparent 60deg,var(--pink) 180deg,transparent 220deg,var(--purple) 300deg,transparent 360deg);
+  -webkit-mask:radial-gradient(circle,transparent 60%,#000 60.5%,#000 62%,transparent 62.5%);
+          mask:radial-gradient(circle,transparent 60%,#000 60.5%,#000 62%,transparent 62.5%);
+  animation:ringSpin 6s linear infinite;
+}
+.avatar-img{
+  position:absolute;inset:8px;border-radius:50%;
+  background:url('5d793b38e4b2b3c8cb9d76f25cb7f579.jpg') center/cover;
+  filter:contrast(1.1) saturate(0.9) hue-rotate(-8deg);
+}
+.avatar-img::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,0.18) 2px,rgba(0,240,255,0.18) 3px);
+  mix-blend-mode:overlay;border-radius:50%;
+}
+.avatar-tag{
+  position:absolute;top:-4px;right:-10px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);
+  background:rgba(3,3,10,0.85);border:1px solid var(--green);
+  padding:3px 8px;letter-spacing:1.5px;
+  box-shadow:0 0 10px rgba(57,255,20,0.5);
+}
+.avatar-corner{
+  position:absolute;width:18px;height:18px;border:1px solid var(--cyan);
+}
+.avatar-corner.tl{top:-30px;left:-30px;border-right:none;border-bottom:none}
+.avatar-corner.tr{top:-30px;right:-30px;border-left:none;border-bottom:none}
+.avatar-corner.bl{bottom:-30px;left:-30px;border-right:none;border-top:none}
+.avatar-corner.br{bottom:-30px;right:-30px;border-left:none;border-top:none}
+.avatar-coord{position:absolute;top:-50px;left:-30px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:1px}
+.avatar-coord.b{bottom:-50px;bottom:-46px;left:auto;right:-30px;text-align:right;color:var(--pink)}
 
-        .hero-sparks {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0;
-        }
+@keyframes ringPulse{0%,100%{box-shadow:0 0 25px rgba(0,240,255,0.5),inset 0 0 30px rgba(0,240,255,0.2)}50%{box-shadow:0 0 45px rgba(255,45,149,0.6),inset 0 0 30px rgba(255,45,149,0.2)}}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
 
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            position: relative; z-index: 1;
-        }
+.hero-text h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  font-weight:900;
+  letter-spacing:5px;
+  line-height:1;
+  background:linear-gradient(135deg,#00f0ff 0%,#b44dff 50%,#ff2d95 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  position:relative;
+  filter:drop-shadow(0 0 18px rgba(0,240,255,0.4));
+  margin-bottom:6px;
+  display:inline-block;
+}
+.hero-text h1::after{
+  content:attr(data-text);
+  position:absolute;left:0;top:0;width:100%;
+  background:linear-gradient(135deg,#00f0ff 0%,#b44dff 50%,#ff2d95 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  pointer-events:none;
+}
+.hero-text h1:hover{animation:glitchText 0.4s linear infinite}
+@keyframes glitchText{
+  0%{transform:translate(0,0)}
+  20%{transform:translate(-2px,1px)}
+  40%{transform:translate(2px,-1px)}
+  60%{transform:translate(-1px,-1px)}
+  80%{transform:translate(1px,1px)}
+  100%{transform:translate(0,0)}
+}
+.hero-sub{
+  font-family:'Share Tech Mono',monospace;
+  font-size:13px;color:var(--txt-dim);letter-spacing:2px;
+  margin-bottom:18px;
+}
+.hero-sub .cursor{display:inline-block;width:8px;height:14px;background:var(--cyan);margin-left:4px;vertical-align:middle;animation:blink 0.9s infinite;box-shadow:0 0 6px var(--cyan)}
+.hero-info-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px;
+  font-family:'Share Tech Mono',monospace;font-size:12px;
+  color:var(--txt-dim);margin-bottom:18px;letter-spacing:1px;
+}
+.hero-info-grid .lbl{color:var(--pink)}
+.hero-info-grid .val{color:var(--txt)}
+.hero-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tag{
+  font-family:'Share Tech Mono',monospace;
+  padding:6px 14px;font-size:11px;letter-spacing:2px;
+  color:var(--cyan);background:rgba(0,240,255,0.06);
+  border:1px solid var(--line-strong);
+  position:relative;overflow:hidden;
+  text-transform:uppercase;
+}
+.tag::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,240,255,0.2),transparent);animation:tagScan 3s linear infinite}
+@keyframes tagScan{to{left:100%}}
+.tag.pink{color:var(--pink);border-color:rgba(255,45,149,0.4);background:rgba(255,45,149,0.06)}
+.tag.pink::before{background:linear-gradient(90deg,transparent,rgba(255,45,149,0.25),transparent)}
+.tag.purple{color:var(--purple);border-color:rgba(180,77,255,0.4);background:rgba(180,77,255,0.06)}
 
-        .avatar-frame {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            border: 3px solid var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15), inset 0 0 20px rgba(0,240,255,0.1);
-            overflow: hidden;
-            background-image: url('5d793b38e4b2b3c8cb9d76f25cb7f579.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            animation: avatarPulse 3s ease-in-out infinite;
-        }
-        .avatar-frame::after {
-            content: '';
-            position: absolute; inset: -4px; border-radius: 50%;
-            border: 1px solid rgba(0,240,255,0.2);
-            animation: avatarSpin 8s linear infinite;
-        }
+/* === CARD base === */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  position:relative;padding:24px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+}
+.card::before{content:'';position:absolute;top:0;right:0;width:14px;height:14px;background:linear-gradient(225deg,var(--cyan) 50%,transparent 50%);opacity:0.7}
+.card .card-id{
+  position:absolute;top:-1px;left:-1px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--cyan);background:rgba(0,240,255,0.1);
+  padding:2px 8px;letter-spacing:1.5px;border:1px solid var(--line-strong);
+  border-left:none;border-top:none;
+}
+.card .card-id::before{content:'#'}
 
-        @keyframes avatarPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15); }
-            50% { box-shadow: 0 0 50px rgba(0,240,255,0.6), 0 0 120px rgba(255,45,149,0.3); }
-        }
-        @keyframes avatarSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+/* === ABILITY === */
+.ability{display:flex;justify-content:center;align-items:center}
+.radar-wrap{position:relative;width:min(620px,92vw);height:min(620px,92vw);aspect-ratio:1/1}
+.radar-wrap canvas{width:100%;height:100%;display:block}
 
-        .hero-text h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: 6px;
-            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 50%, var(--neon-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: none;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 20px rgba(0,240,255,0.3));
-        }
+.ability-side{display:flex;flex-direction:column;gap:16px}
+.ability-tag{
+  font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:800;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:3px;line-height:1.2;
+  filter:drop-shadow(0 0 8px rgba(255,45,149,0.3));
+}
+.ability-tag small{display:block;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--txt-dim);font-weight:400;letter-spacing:2px;margin-top:6px;-webkit-text-fill-color:var(--txt-dim)}
+.stat-row{
+  display:grid;grid-template-columns:130px 1fr 50px;gap:10px;align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:12px;
+  color:var(--txt-dim);letter-spacing:1px;
+}
+.stat-row .nm{color:var(--txt)}
+.stat-row .val{text-align:right;color:var(--cyan);text-shadow:0 0 6px rgba(0,240,255,0.4);font-weight:700}
+.bar{height:6px;background:rgba(0,240,255,0.08);position:relative;overflow:hidden;border:1px solid var(--line)}
+.bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));width:var(--w,50%);box-shadow:0 0 8px rgba(0,240,255,0.5);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
 
-        .hero-info {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-        }
+/* === TERMINAL block === */
+.term{
+  background:rgba(0,0,0,0.6);
+  border:1px solid var(--line);
+  font-family:'Share Tech Mono',monospace;font-size:13px;
+  padding:18px 22px;line-height:1.9;
+  position:relative;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.term::before{content:'';position:absolute;top:0;right:0;width:10px;height:10px;background:linear-gradient(225deg,var(--green) 50%,transparent 50%)}
+.term .prompt{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
+.term .path{color:var(--cyan)}
+.term .out{color:var(--txt)}
+.term .key{color:var(--yellow)}
+.term .val{color:var(--pink)}
 
-        .hero-tags {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+/* === TIMELINE (履历) === */
+.tl{position:relative;padding-left:34px}
+.tl::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--cyan),var(--pink) 60%,var(--purple));box-shadow:0 0 8px var(--cyan)}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-item::before{content:'';position:absolute;left:-30px;top:8px;width:14px;height:14px;background:var(--bg-deep);border:2px solid var(--cyan);box-shadow:0 0 10px var(--cyan),0 0 22px rgba(0,240,255,0.4);transform:rotate(45deg)}
+.tl-item::after{content:'';position:absolute;left:-26px;top:12px;width:6px;height:6px;background:var(--cyan);box-shadow:0 0 6px var(--cyan);transform:rotate(45deg)}
+.tl-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.tl-id{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--pink);background:rgba(255,45,149,0.1);border:1px solid rgba(255,45,149,0.3);padding:1px 8px;letter-spacing:1.5px}
+.tl-status{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5);letter-spacing:1.5px}
+.tl-status::before{content:'●';margin-right:5px}
+.tl-title{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;color:var(--cyan);letter-spacing:2px;text-shadow:0 0 10px rgba(0,240,255,0.3)}
+.tl-desc{color:var(--txt);font-size:0.95rem;line-height:1.7;margin-top:6px}
+.tl-imgs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.tl-imgs img{max-width:220px;border:1px solid var(--line);box-shadow:0 0 12px rgba(0,240,255,0.1);transition:all 0.3s}
+.tl-imgs img:hover{transform:scale(1.04);border-color:var(--cyan);box-shadow:0 0 20px rgba(0,240,255,0.4)}
+.tl-research-title{font-size:0.85rem;color:var(--txt-dim);line-height:1.6;margin-top:6px;font-style:italic;padding-left:10px;border-left:2px solid var(--line)}
+.tl-pdf{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan);text-decoration:none;letter-spacing:2px;border:1px solid var(--line-strong);padding:7px 18px;position:relative;overflow:hidden;transition:all 0.3s}
+.tl-pdf::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,240,255,0.25),transparent);transition:left 0.5s}
+.tl-pdf:hover::before{left:100%}
+.tl-pdf:hover{background:rgba(0,240,255,0.1);box-shadow:0 0 18px rgba(0,240,255,0.4);color:#fff}
+.tl-pdf::after{content:'→';margin-left:4px}
 
-        .tag {
-            font-family: 'Rajdhani', sans-serif;
-            padding: 6px 18px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            background: rgba(0,240,255,0.05);
-            box-shadow: 0 0 10px rgba(0,240,255,0.2), inset 0 0 8px rgba(0,240,255,0.05);
-            transition: all 0.3s;
-        }
-        .tag:hover {
-            background: rgba(0,240,255,0.12);
-            box-shadow: 0 0 25px rgba(0,240,255,0.4);
-        }
+/* === GITHUB === */
+.gh-card{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.gh-card img{max-width:300px;border:1px solid var(--line);box-shadow:0 0 18px rgba(0,240,255,0.15)}
+.gh-info{flex:1;min-width:200px}
+.gh-link{font-family:'Share Tech Mono',monospace;color:var(--cyan);text-decoration:none;font-size:0.95rem;display:inline-block;margin-bottom:10px;letter-spacing:1px;word-break:break-all;text-shadow:0 0 8px rgba(0,240,255,0.3)}
+.gh-link:hover{color:var(--pink);text-shadow:0 0 12px rgba(255,45,149,0.5)}
+.gh-stats{display:flex;gap:14px;flex-wrap:wrap;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--txt-dim)}
+.gh-stats span{padding:4px 10px;border:1px solid var(--line)}
 
-        /* === CONTENT BLOCKS === */
-        .content-block {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,240,255,0.15);
-            box-shadow: inset 0 0 30px rgba(0,240,255,0.03);
-            position: relative;
-            overflow: hidden;
-        }
-        .content-block::before {
-            content: '';
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            opacity: 0.6;
-        }
+/* === INTERESTS === */
+.intgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.intcard{
+  background:var(--bg-card);border:1px solid var(--line);
+  padding:22px;position:relative;overflow:hidden;
+  transition:all 0.3s;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+.intcard::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width 0.4s;box-shadow:0 0 8px var(--cyan)}
+.intcard:hover::before{width:100%}
+.intcard:hover{border-color:var(--line-strong);box-shadow:0 0 24px rgba(0,240,255,0.15);transform:translateY(-3px)}
+.intcard .ico{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--pink);letter-spacing:2px;margin-bottom:10px;display:flex;justify-content:space-between}
+.intcard .ico::after{content:'ACTIVE';color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
+.intcard h3{font-family:'Orbitron',sans-serif;font-size:1.05rem;color:var(--cyan);letter-spacing:3px;margin-bottom:10px;text-shadow:0 0 10px rgba(0,240,255,0.3)}
+.intcard p{font-size:0.92rem;color:var(--txt-dim);line-height:1.65}
+.intcard p strong{color:var(--pink);font-weight:500}
 
-        .content-block h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: var(--neon-pink);
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255,45,149,0.3);
-        }
+/* === GALLERY === */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.gitem{position:relative;display:block;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 12px rgba(0,240,255,0.08);transition:all 0.3s;aspect-ratio:1/1}
+.gitem img{width:100%;height:100%;object-fit:cover;display:block;transition:all 0.4s;filter:contrast(1.1) saturate(0.85)}
+.gitem::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,240,255,0.6));opacity:0;transition:opacity 0.3s;z-index:2;mix-blend-mode:screen}
+.gitem::after{content:'SCAN';position:absolute;bottom:8px;left:8px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:2px;z-index:3;opacity:0;transition:opacity 0.3s;text-shadow:0 0 6px var(--cyan)}
+.gitem:hover{border-color:var(--cyan);box-shadow:0 0 24px rgba(0,240,255,0.4);transform:translateY(-3px)}
+.gitem:hover img{transform:scale(1.08);filter:contrast(1.2) saturate(1.1)}
+.gitem:hover::before{opacity:1}
+.gitem:hover::after{opacity:1}
 
-        .content-block p, .content-block li {
-            font-size: 1rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
+/* === contact wechat === */
+.wx-wrap{display:flex;align-items:center;gap:30px;flex-wrap:wrap;justify-content:center}
+.wx-wrap img{max-width:240px;border:1px solid var(--line-strong);box-shadow:0 0 25px rgba(0,240,255,0.25);filter:contrast(1.1)}
+.wx-info{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--txt-dim);line-height:2;letter-spacing:1px}
+.wx-info .nm{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,0.4)}
 
-        .content-block a {
-            color: var(--neon-cyan);
-            font-weight: 600;
-            text-decoration: none;
-            text-shadow: 0 0 8px rgba(0,240,255,0.4);
-            word-break: break-all;
-        }
-        .content-block a:hover {
-            color: var(--neon-pink);
-            text-shadow: 0 0 15px rgba(255,45,149,0.6);
-        }
+/* === footer === */
+footer{
+  text-align:center;padding:50px 0 40px;position:relative;z-index:5;
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:var(--txt-dim);letter-spacing:2px;
+  border-top:1px solid var(--line);margin-top:60px;
+}
+footer .blink{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
 
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
+/* === fade in === */
+.fade{opacity:0;transform:translateY(24px);transition:opacity 0.7s,transform 0.7s}
+.fade.in{opacity:1;transform:translateY(0)}
 
-        /* === WeChat === */
-        .wechat-img-wrap {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .wechat-img-wrap img {
-            max-width: 320px;
-            border-radius: 6px;
-            border: 1px solid rgba(0,240,255,0.3);
-            box-shadow: 0 0 25px rgba(0,240,255,0.2);
-        }
+/* === custom cursor follower === */
+.cursor-fx{position:fixed;width:30px;height:30px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:99;mix-blend-mode:screen;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,border-color 0.2s;box-shadow:0 0 12px rgba(0,240,255,0.4)}
+.cursor-fx::after{content:'';position:absolute;top:50%;left:50%;width:4px;height:4px;background:var(--cyan);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px var(--cyan)}
+.cursor-fx.hover{width:50px;height:50px;border-color:var(--pink);box-shadow:0 0 16px rgba(255,45,149,0.5)}
 
-        /* === RADAR CHART === */
-        .radar-section {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 6px;
-            border: 1px solid rgba(0,240,255,0.15);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            box-shadow: inset 0 0 40px rgba(0,240,255,0.03);
-        }
-
-        .radar-wrapper {
-            width: 320px;
-            height: 320px;
-            flex-shrink: 0;
-        }
-
-        .radar-label { fill: var(--text-dim); font-size: 11px; text-anchor: middle; letter-spacing: 1px; }
-        .radar-grade { fill: var(--neon-cyan); font-size: 13px; font-weight: 900; text-anchor: middle; text-shadow: 0 0 8px rgba(0,240,255,0.5); }
-        .radar-data-poly { fill: rgba(0,240,255,0.15); stroke: var(--neon-cyan); stroke-width: 2; filter: drop-shadow(0 0 8px rgba(0,240,255,0.5)); }
-        .radar-axis { stroke: rgba(255,255,255,0.08); stroke-width: 1; }
-
-        .radar-type-text span {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--neon-pink) !important;
-            text-shadow: 0 0 20px rgba(255,45,149,0.5);
-            letter-spacing: 3px;
-        }
-
-        /* === TIMELINE === */
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-            border-left: 2px solid rgba(0,240,255,0.2);
-        }
-
-        .tl-item {
-            margin-bottom: 35px;
-            position: relative;
-        }
-
-        .tl-item::before {
-            content: '';
-            position: absolute;
-            left: -36px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--neon-cyan), 0 0 30px rgba(0,240,255,0.5);
-        }
-
-        .tl-title {
-            font-family: 'Orbitron', 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--neon-cyan);
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0,240,255,0.3);
-        }
-
-        .tl-desc {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-        }
-
-        .tl-img {
-            display: block;
-            margin-top: 10px;
-            border-radius: 4px;
-            border: 1px solid rgba(0,240,255,0.15);
-        }
-        .tl-img-medium { max-width: 300px; }
-        .tl-img-small { max-width: 180px; }
-
-        .tl-research-title {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-            margin-top: 5px;
-        }
-
-        .tl-pdf-link {
-            display: inline-block;
-            margin-top: 10px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.9rem;
-            color: var(--neon-cyan);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border: 1px solid var(--neon-cyan);
-            padding: 6px 18px;
-            border-radius: 4px;
-            box-shadow: 0 0 12px rgba(0,240,255,0.2);
-            transition: all 0.3s;
-        }
-        .tl-pdf-link:hover {
-            background: rgba(0,240,255,0.1);
-            box-shadow: 0 0 25px rgba(0,240,255,0.5);
-            color: #fff;
-        }
-
-        .tl-research-imgs {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .tl-research-imgs img {
-            max-width: 250px;
-            height: auto;
-            border-radius: 4px;
-            border: 1px solid rgba(0,240,255,0.15);
-            box-shadow: 0 0 15px rgba(0,240,255,0.1);
-        }
-
-        /* === INTERESTS GRID === */
-        .interest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-        }
-
-        .int-card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid rgba(255,45,149,0.15);
-            box-shadow: inset 0 0 20px rgba(255,45,149,0.02);
-            transition: all 0.3s;
-        }
-        .int-card:hover {
-            border-color: rgba(255,45,149,0.4);
-            box-shadow: 0 0 20px rgba(255,45,149,0.2), inset 0 0 20px rgba(255,45,149,0.03);
-            transform: translateY(-3px);
-        }
-
-        .int-card strong {
-            display: block;
-            font-family: 'Orbitron', 'Rajdhani', sans-serif;
-            color: var(--neon-pink);
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px rgba(255,45,149,0.3);
-        }
-
-        .int-card p {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        /* === GALLERY === */
-        .gallery-row {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .gallery-row a {
-            flex: 0 1 170px;
-            display: block;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(0,240,255,0.15);
-            box-shadow: 0 0 15px rgba(0,240,255,0.08);
-            opacity: 0.85;
-            transition: all 0.3s;
-        }
-        .gallery-row a.gallery-large { flex: 0 1 230px; }
-        .gallery-row a:hover {
-            opacity: 1;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0,240,255,0.3);
-            transform: translateY(-4px);
-        }
-
-        .gallery-row img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px 0;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            border-top: 1px solid rgba(0,240,255,0.08);
-            position: relative; z-index: 1;
-        }
-
-        /* Animation */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        /* Spark particles */
-        .spark {
-            position: absolute;
-            width: 2px; height: 2px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--neon-cyan);
-            animation: sparkFloat 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-        @keyframes sparkFloat {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-            20% { opacity: 1; transform: translateY(-40px) scale(1); }
-            80% { opacity: 0.5; }
-        }
-
-        @media (min-width: 768px) {
-            .hero-content {
-                flex-direction: row;
-                text-align: left;
-                align-items: flex-start;
-            }
-            .hero-text { padding-top: 30px; flex: 1; }
-            .hero-tags { justify-content: flex-start; }
-        }
-    </style>
+/* === responsive === */
+@media (min-width:1100px){
+  /* 宽屏下整体更紧凑 */
+  .wrap{max-width:860px}
+  .avatar{width:220px;height:220px}
+  .hero-text h1{font-size:3.1rem;letter-spacing:5px}
+  .hero-info-grid{font-size:11px;gap:6px 16px}
+  .hero-tags{gap:8px}
+  .tag{padding:5px 12px;font-size:10px}
+  .radar-wrap{width:min(540px,90vw);height:min(540px,90vw)}
+}
+@media (min-width:1600px){
+  /* 超大屏更收紧 */
+  .wrap{max-width:820px}
+  .avatar{width:200px;height:200px}
+  .hero-text h1{font-size:2.9rem}
+}
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:36px;text-align:center;justify-items:center}
+  .hero-info-grid{grid-template-columns:1fr;gap:4px}
+  .ability{grid-template-columns:1fr;gap:24px}
+  .radar-wrap{margin:0 auto}
+  .statusbar{padding:8px 20px;font-size:10px}
+  .hud-frame::before,.hud-frame::after,.hud-frame > i{width:22px;height:22px}
+  .stitle{flex-wrap:wrap;font-size:0.7rem}
+  .cursor-fx{display:none}
+}
+@media (max-width:520px){
+  .avatar{width:220px;height:220px}
+  .hero-text h1{letter-spacing:3px}
+  .tl-research-title{font-size:0.8rem}
+}
+</style>
 </head>
 <body>
-    <div class="circuit-bg"></div>
 
-    <!-- Hero Header -->
-    <header class="hero">
-        <div class="hero-sparks" id="heroSparks"></div>
-        <div class="container hero-content">
-            <div class="avatar-frame"></div>
-            <div class="hero-text">
-                <h1>于若桐</h1>
-                <p class="hero-info">16岁 / 男生 / 人大附中高中生</p>
-                <p class="hero-info">微信号：fishfishfish_091214</p>
-                <div class="hero-tags">
-                    <span class="tag">我是人类</span>
-                    <span class="tag">大脑已接入Deepseek API</span>
-                </div>
-            </div>
-        </div>
-    </header>
+<canvas id="matrix"></canvas>
+<div class="scanlines"></div>
+<div class="noise"></div>
+<div class="vignette"></div>
+<div class="hud-frame"><i class="c1"></i><i class="c2"></i></div>
 
-    <div class="container">
+<div class="statusbar">
+  <div class="seg"><span><span class="dot"></span>SYSTEM ONLINE</span><span class="dim">// v2.077.42</span></div>
+  <div class="seg">
+    <span class="dim">NODE //</span> RDP-RDF-CLUSTER
+    <span class="dim">//</span> <span id="ip">10.0.4.66</span>
+    <span class="dim">//</span> <span id="clock">--:--:--</span>
+  </div>
+  <div class="seg"><span class="dim">PING</span> <span style="color:var(--green)">12ms</span></div>
+</div>
 
-        <!-- Ability Panel -->
-        <section class="fade-in">
-            <h2>能力面板</h2>
-            <div class="radar-section">
-                <div class="radar-wrapper">
-                    <svg viewBox="0 0 300 300" width="100%" height="100%">
-                        <polygon points="150,50 228,87 247,172 193,240 106,240 52,172 71,87" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-                        <polygon points="150,110 181,124 189,157 150,185 111,157 103,124 150,110" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-                        <line x1="150" y1="150" x2="150" y2="50" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="228" y2="87" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="247" y2="172" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="193" y2="240" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="106" y2="240" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="52" y2="172" class="radar-axis"/>
-                        <line x1="150" y1="150" x2="71" y2="87" class="radar-axis"/>
-                        <polygon points="150,120 173,131 227,167 184,222 126,199 96,162 87,100" class="radar-data-poly"/>
-                        <text x="150" y="35" class="radar-label">软件工程综合实力</text><text x="150" y="110" class="radar-grade">C</text>
-                        <text x="245" y="75" class="radar-label">硬件工程综合实力</text><text x="185" y="120" class="radar-grade">C</text>
-                        <text x="260" y="175" class="radar-label">设计/脑洞</text><text x="235" y="160" class="radar-grade">A</text>
-                        <text x="193" y="255" class="radar-label">熬夜耐力</text><text x="190" y="230" class="radar-grade">A</text>
-                        <text x="106" y="255" class="radar-label">理论知识</text><text x="115" y="230" class="radar-grade">B</text>
-                        <text x="40" y="175" class="radar-label">工具熟练度</text><text x="85" y="160" class="radar-grade">B</text>
-                        <text x="55" y="75" class="radar-label">演讲/沟通能力</text><text x="75" y="90" class="radar-grade">A</text>
-                    </svg>
-                </div>
-                <div class="radar-type-text">
-                    <span style="font-size:1.4rem; font-weight:800;">综合类型：初级开发者</span>
-                </div>
-            </div>
-        </section>
+<div class="boot" id="boot">
+  <div class="boot-logo">YU.RUOTONG</div>
+  <div class="boot-log" id="bootLog"></div>
+  <div class="boot-bar"></div>
+</div>
 
-        <!-- WeChat Contact -->
-        <section class="fade-in">
-            <h2>联系方式</h2>
-            <div class="content-block">
-                <div class="wechat-img-wrap">
-                    <img src="微信联系方式.jpg" alt="微信二维码">
-                </div>
-            </div>
-        </section>
+<div class="cursor-fx" id="cursorFx"></div>
 
-        <!-- Resume -->
-        <section class="fade-in">
-            <h2>履历</h2>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-title">公益装机服务 (4年)</div>
-                    <div class="tl-desc">提供4年公益装机服务，营业额超过10万元，盈利0元。海淀黄庄最强售后。</div>
-                    <img class="tl-img tl-img-small" src="装机1.jpg" alt="装机1">
-                    <img class="tl-img tl-img-small" src="装机2.jpg" alt="装机2">
-                </div>
-                <div class="tl-item">
-                    <div class="tl-title">FRC/FTC 机器人战队结构工程师</div>
-                    <div class="tl-desc">随队打入中国区FTC总决赛</div>
-                    <img class="tl-img tl-img-medium" src="frc.jpg" alt="FRC/FTC">
-                </div>
-                <div class="tl-item">
-                    <div class="tl-title">学校MEC商赛队伍产品技术工程师</div>
-                    <div class="tl-desc">设计开发一款根据眨眼频次推算眼干程度的低成本健康眼镜，成本仅60元</div>
-                    <img class="tl-img tl-img-small" src="mec.jpg" alt="MEC眼镜">
-                </div>
-                <div class="tl-item">
-                    <div class="tl-title">个人科研</div>
-                    <div class="tl-research-title">全英文论文：《Geometry Reveal Causality: Detecting Reasoning Hallucination in Long-Chain LLM Reasoning via Multi-Component Contextual Anchor in Embedding Space and Machine Learning》</div>
-                    <a class="tl-pdf-link" href="ML_于若桐_论文_副本.pdf" target="_blank">翻阅论文 PDF</a>
-                    <div class="tl-research-imgs">
-                        <img src="论文图1.jpg" alt="论文图1">
-                        <img src="论文图2.jpg" alt="论文图2">
-                    </div>
-                </div>
-            </div>
-        </section>
+<main class="wrap">
 
-        <!-- GitHub -->
-        <section class="fade-in">
-            <h2>GitHub</h2>
-            <div class="content-block">
-                <p><a href="https://github.com/h0p3-cser" target="_blank">https://github.com/h0p3-cser</a></p>
-                <img src="首页截图.jpg" alt="GitHub主页" style="max-width:320px; display:block; margin-top:12px; border-radius:4px; border:1px solid rgba(0,240,255,0.15); box-shadow:0 0 15px rgba(0,240,255,0.1);">
-            </div>
-        </section>
-
-        <!-- About Me -->
-        <section class="fade-in">
-            <h2>关于我</h2>
-            <div class="interest-grid">
-                <div class="int-card">
-                    <strong>音乐偏好</strong>
-                    <p>喜欢听日摇/日流/中西部情绪，中文最爱听周杰伦</p>
-                </div>
-                <div class="int-card">
-                    <strong>电竞</strong>
-                    <p>创办了CS2 黄庄major电竞锦标赛，后与同学共同创立了BHML高中电竞联赛，吸引超过10所高中的Counter-Strike战队参加</p>
-                </div>
-                <div class="int-card">
-                    <strong>运动</strong>
-                    <p>长跑爱好者，最喜欢的跑鞋是 李宁飞电5 elite</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery -->
-        <section class="fade-in">
-            <h2>作品</h2>
-            <div class="gallery-row">
-                <a href="bhml.jpg" target="_blank"><img src="bhml.jpg" alt="BHML海报"></a>
-                <a href="电台.jpg" target="_blank"><img src="电台.jpg" alt="深夜电台"></a>
-                <a href="画3.jpg" target="_blank"><img src="画3.jpg" alt="作品3"></a>
-                <a href="画作4.jpg" target="_blank"><img src="画作4.jpg" alt="作品4"></a>
-                <a href="画作5.jpg" target="_blank" class="gallery-large"><img src="画作5.jpg" alt="作品5"></a>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner fade" id="hero">
+    <div class="avatar">
+      <div class="avatar-corner tl"></div>
+      <div class="avatar-corner tr"></div>
+      <div class="avatar-corner bl"></div>
+      <div class="avatar-corner br"></div>
+      <div class="avatar-coord">[ 39.97N · 116.32E ]<br>RDFZ // SECTOR-7</div>
+      <div class="avatar-coord b">IMG_ID: 0x5D793B<br>STATUS: HUMAN</div>
+      <div class="avatar-img"></div>
+      <div class="avatar-ring r3"></div>
+      <div class="avatar-ring r2"></div>
+      <div class="avatar-ring"></div>
+      <div class="avatar-tag">▣ ONLINE</div>
     </div>
+    <div class="hero-text">
+      <h1 data-text="于若桐">于若桐</h1>
+      <div class="hero-sub">// USER PROFILE :: v2.077 :: <span class="cursor"></span></div>
+      <div class="hero-info-grid">
+        <div><span class="lbl">AGE //</span> <span class="val">16</span></div>
+        <div><span class="lbl">SEX //</span> <span class="val">M</span></div>
+        <div><span class="lbl">SCHOOL //</span> <span class="val">人大附中</span></div>
+        <div><span class="lbl">WX //</span> <span class="val">fishfishfish_091214</span></div>
+      </div>
+      <div class="hero-tags">
+        <span class="tag">// 我是人类</span>
+        <span class="tag pink">// 大脑已接入 Deepseek API</span>
+        <span class="tag purple">// caffeinated</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>© 2026 于若桐</p>
-    </footer>
+<!-- ABILITY -->
+<section>
+  <div class="stitle fade"><span class="num">01</span> 能力面板 // ABILITY MATRIX</div>
+  <div class="ability fade">
+    <div class="radar-wrap">
+      <canvas id="radar" width="900" height="900"></canvas>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Spark particles
-        const sparksContainer = document.getElementById('heroSparks');
-        for (let i = 0; i < 20; i++) {
-            const spark = document.createElement('div');
-            spark.className = 'spark';
-            spark.style.left = Math.random() * 100 + '%';
-            spark.style.top = Math.random() * 100 + '%';
-            spark.style.animationDelay = Math.random() * 6 + 's';
-            spark.style.animationDuration = (4 + Math.random() * 6) + 's';
-            if (Math.random() > 0.5) {
-                spark.style.background = 'var(--neon-pink)';
-                spark.style.boxShadow = '0 0 6px var(--neon-pink)';
-            }
-            sparksContainer.appendChild(spark);
-        }
+<!-- CONTACT -->
+<section>
+  <div class="stitle fade"><span class="num">02</span> 联系方式 // CONTACT</div>
+  <div class="card fade">
+    <span class="card-id">CONTACT.SYS</span>
+    <div class="wx-wrap" style="margin-top:10px">
+      <img src="微信联系方式.jpg" alt="wechat qr">
+      <div class="wx-info">
+        <span class="nm">// 扫描左侧 QR 建立连接</span><br>
+        <span class="dim">PROTOCOL //</span> WECHAT_REV2<br>
+        <span class="dim">WX_ID //</span> <span class="nm">fishfishfish_091214</span><br>
+        <span class="dim">REGION //</span> HAIDIAN.BJ.CN<br>
+        <span class="dim">LATENCY //</span> <span style="color:var(--green)">~ 1ms</span><br>
+        <span class="dim">STATUS //</span> <span style="color:var(--green)">● ACCEPTING PACKETS</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Intersection Observer for fade-in
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+<!-- TIMELINE -->
+<section>
+  <div class="stitle fade"><span class="num">03</span> 履历 // LOG.STREAM</div>
+  <div class="tl fade">
+    <div class="tl-item">
+      <div class="tl-head">
+        <span class="tl-id">LOG_01</span>
+        <span class="tl-title">公益装机服务</span>
+        <span class="tl-status">4年 · ACTIVE</span>
+      </div>
+      <div class="tl-desc">提供 <span style="color:var(--cyan)">4 年</span> 公益装机服务，营业额 <span style="color:var(--pink)">¥100,000+</span>，盈利 <span style="color:var(--green)">¥0</span>。海淀黄庄最强售后，免费上门 7×24。</div>
+      <div class="tl-imgs"><img src="装机1.jpg"><img src="装机2.jpg"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-head">
+        <span class="tl-id">LOG_02</span>
+        <span class="tl-title">FRC / FTC 机器人战队</span>
+        <span class="tl-status">STRUCT_ENG</span>
+      </div>
+      <div class="tl-desc">结构工程师。随队打入 <span style="color:var(--cyan)">中国区 FTC 总决赛</span>。</div>
+      <div class="tl-imgs"><img src="frc.jpg"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-head">
+        <span class="tl-id">LOG_03</span>
+        <span class="tl-title">MEC 商赛 · 产品技术工程</span>
+        <span class="tl-status">PRODUCT_ENG</span>
+      </div>
+      <div class="tl-desc">学校 MEC 商赛队伍产品技术工程师。设计开发一款根据<span style="color:var(--cyan)">眨眼频次</span>推算眼干程度的低成本健康眼镜，<span style="color:var(--pink)">成本仅 ¥60</span>。</div>
+      <div class="tl-imgs"><img src="mec.jpg"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-head">
+        <span class="tl-id">LOG_04</span>
+        <span class="tl-title">个人科研 · LLM 推理幻觉检测</span>
+        <span class="tl-status">RESEARCH</span>
+      </div>
+      <div class="tl-research-title">"Geometry Reveal Causality: Detecting Reasoning Hallucination in Long-Chain LLM Reasoning via Multi-Component Contextual Anchor in Embedding Space and Machine Learning"</div>
+      <a class="tl-pdf" href="ML_于若桐_论文_副本.pdf" target="_blank">OPEN_PDF // 翻阅论文</a>
+      <div class="tl-imgs"><img src="论文图1.jpg"><img src="论文图2.jpg"></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-head">
+        <span class="tl-id">LOG_05</span>
+        <span class="tl-title">AdvantureX 2026 黑客松 · RDK x5 赛道</span>
+        <span class="tl-status" style="color:var(--green);text-shadow:0 0 8px rgba(57,255,20,0.6)">● 2ND_PRIZE</span>
+      </div>
+      <div class="tl-desc">作品是一个<span style="color:var(--cyan)">探针沙漠灌溉机器人</span>，拥有<span style="color:var(--pink)">智能视觉识别系统</span>，可自主导航并精准灌溉。<span style="color:var(--green);font-weight:700">二等奖</span></div>
+      <div class="tl-imgs"><img src="adv-robot.jpg"><img src="adv-prize.jpg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB -->
+<section>
+  <div class="stitle fade"><span class="num">04</span> GitHub // REPO.LINK</div>
+  <div class="card fade">
+    <span class="card-id">GH_NODE</span>
+    <div class="gh-card" style="margin-top:8px">
+      <img src="首页截图.jpg" alt="github home">
+      <div class="gh-info">
+        <div class="term" style="margin-bottom:12px">
+          <span class="prompt">root@rdfz</span>:<span class="path">~</span>$ git clone <span class="val">https://github.com/h0p3-cser</span>
+        </div>
+        <a class="gh-link" href="https://github.com/h0p3-cser" target="_blank">→ https://github.com/h0p3-cser</a>
+        <div class="gh-stats">
+          <span>REPOS // 14</span>
+          <span>STARS // ∞</span>
+          <span>COMMITS // 1024+</span>
+          <span style="color:var(--green)">● ONLINE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="stitle fade"><span class="num">05</span> 关于我 // PERSONAL.SYS</div>
+  <div class="intgrid fade">
+    <div class="intcard">
+      <div class="ico">// 01 · MUSIC_MODULE</div>
+      <h3>音乐偏好</h3>
+      <p>喜欢听 <strong>日摇 / 日流 / 中西部情绪</strong>。中文最爱听 <strong style="color:var(--cyan)">周杰伦</strong>。深夜电台 24h 循环。</p>
+    </div>
+    <div class="intcard">
+      <div class="ico">// 02 · ESPORTS_MODULE</div>
+      <h3>电竞</h3>
+      <p>创办 <strong>CS2 黄庄 major 电竞锦标赛</strong>，后与同学共同创立 <strong style="color:var(--pink)">BHML 高中电竞联赛</strong>，吸引 <strong>10+ 所高中</strong>的 Counter-Strike 战队参加。</p>
+    </div>
+    <div class="intcard">
+      <div class="ico">// 03 · SPORTS_MODULE</div>
+      <h3>运动</h3>
+      <p>长跑爱好者。最喜欢的跑鞋：<strong style="color:var(--cyan)">李宁飞电 5 ELITE</strong>。配速稳定在 4'30"/km，目前累计跑量 800+ km。</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="stitle fade"><span class="num">06</span> 作品 // ARCHIVE.VIEW</div>
+  <div class="gallery fade">
+    <a href="bhml.jpg" target="_blank" class="gitem"><img src="bhml.jpg" alt="BHML 海报"></a>
+    <a href="电台.jpg" target="_blank" class="gitem"><img src="电台.jpg" alt="深夜电台"></a>
+    <a href="画3.jpg" target="_blank" class="gitem"><img src="画3.jpg" alt="作品3"></a>
+    <a href="画作4.jpg" target="_blank" class="gitem"><img src="画作4.jpg" alt="作品4"></a>
+    <a href="画作5.jpg" target="_blank" class="gitem"><img src="画作5.jpg" alt="作品5"></a>
+  </div>
+</section>
+
+<footer>
+  <p>// © 2026 YU.RUOTONG // ALL_PACKETS_RESERVED // <span class="blink">●</span> <span class="blink">●</span> <span class="blink">●</span></p>
+  <p style="margin-top:8px;font-size:10px;color:var(--txt-mute)">END_OF_TRANSMISSION · 0x7F · EOF</p>
+</footer>
+
+</main>
+
+<script>
+/* ====== BOOT SEQUENCE ====== */
+const bootLog = document.getElementById('bootLog');
+const bootMsgs = [
+  {t:'[ OK ] Initializing neural handshake...', c:''},
+  {t:'[ OK ] Loading personality matrix...', c:'ok'},
+  {t:'[ OK ] Mounting /dev/brain to /mnt/creativity', c:'ok'},
+  {t:'[INFO] Resolving caffeine dependencies...', c:''},
+  {t:'[ OK ] caffeine-3.14 unlocked', c:'ok'},
+  {t:'[INFO] Syncing circadian rhythm... drift ±3.7h', c:'warn'},
+  {t:'[ OK ] Lighting up neon district', c:'ok'},
+  {t:'[ OK ] CYBERPUNK_PROFILE.READY', c:'ok'},
+  {t:'', c:''},
+  {t:'> welcome, visitor. protocol YU_RT engaged.', c:'ok'},
+];
+let bi = 0;
+function bootTick(){
+  if(bi >= bootMsgs.length){
+    setTimeout(()=>document.getElementById('boot').classList.add('done'), 400);
+    return;
+  }
+  const m = bootMsgs[bi++];
+  const line = document.createElement('div');
+  if(m.c === 'ok') line.className = 'ok';
+  else if(m.c === 'warn') line.className = 'warn';
+  line.textContent = m.t;
+  bootLog.appendChild(line);
+  bootLog.scrollTop = bootLog.scrollHeight;
+  setTimeout(bootTick, 110 + Math.random()*120);
+}
+bootTick();
+
+/* ====== MATRIX RAIN ====== */
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+let W, H, cols, drops, fontSize = 14;
+const glyphs = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>{}[]/\\!?#@$%&*+='.split('');
+function resizeMatrix(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  cols = Math.floor(W / fontSize);
+  drops = Array(cols).fill(0).map(()=> Math.random() * H / fontSize);
+}
+resizeMatrix();
+window.addEventListener('resize', resizeMatrix);
+
+function drawMatrix(){
+  ctx.fillStyle = 'rgba(3,3,10,0.08)';
+  ctx.fillRect(0,0,W,H);
+  ctx.font = fontSize + 'px Share Tech Mono, monospace';
+  for(let i=0;i<drops.length;i++){
+    const ch = glyphs[Math.floor(Math.random()*glyphs.length)];
+    const y = drops[i] * fontSize;
+    // head bright, tail fading handled implicitly
+    const grad = ctx.createLinearGradient(0, y - fontSize*6, 0, y);
+    grad.addColorStop(0, 'rgba(0,240,255,0)');
+    grad.addColorStop(1, 'rgba(0,240,255,0.7)');
+    ctx.fillStyle = (Math.random() > 0.985) ? '#ff2d95' : grad;
+    ctx.fillText(ch, i*fontSize, y);
+    if(y > H && Math.random() > 0.975) drops[i] = 0;
+    drops[i] += 0.6 + Math.random()*0.3;
+  }
+}
+setInterval(drawMatrix, 55);
+
+/* ====== CLOCK ====== */
+function tick(){
+  const d = new Date();
+  const t = d.toTimeString().slice(0,8);
+  document.getElementById('clock').textContent = t;
+}
+setInterval(tick, 1000); tick();
+
+/* ====== RADAR ====== */
+const rc = document.getElementById('radar');
+const rctx = rc.getContext('2d');
+const radarData = [
+  {label:'软件工程', grade:'C', val:0.40},
+  {label:'硬件工程', grade:'C', val:0.45},
+  {label:'设计/脑洞', grade:'A', val:0.90},
+  {label:'熬夜耐力', grade:'A', val:0.88},
+  {label:'理论知识', grade:'B', val:0.62},
+  {label:'工具熟练', grade:'B', val:0.68},
+  {label:'演讲/沟通', grade:'A', val:0.85},
+];
+const gradeColor = { A:'#b44dff', B:'#0080ff', C:'#39ff14' };
+let radarT = 0;
+function drawRadar(t){
+  const w = rc.width, h = rc.height;
+  const cx = w/2, cy = h/2;
+  const R = Math.min(w,h)*0.32;
+  const labelR = Math.min(w,h)*0.42;
+  const n = radarData.length;
+  rctx.clearRect(0,0,w,h);
+
+  // concentric grid (heptagon)
+  for(let level=1; level<=4; level++){
+    const r = R * (level/4);
+    rctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a = (i/n)*Math.PI*2 - Math.PI/2;
+      const x = cx + Math.cos(a)*r;
+      const y = cy + Math.sin(a)*r;
+      i===0 ? rctx.moveTo(x,y) : rctx.lineTo(x,y);
+    }
+    rctx.closePath();
+    rctx.strokeStyle = 'rgba(0,240,255,' + (0.05 + level*0.04) + ')';
+    rctx.lineWidth = 1;
+    rctx.stroke();
+  }
+
+  // axes
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 - Math.PI/2;
+    rctx.beginPath();
+    rctx.moveTo(cx, cy);
+    rctx.lineTo(cx + Math.cos(a)*R, cy + Math.sin(a)*R);
+    rctx.strokeStyle = 'rgba(0,240,255,0.12)';
+    rctx.stroke();
+  }
+
+  // data polygon with eased animation
+  const eased = 1 - Math.pow(1 - Math.min(t,1), 3);
+  rctx.beginPath();
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 - Math.PI/2;
+    const r = R * radarData[i].val * eased;
+    const x = cx + Math.cos(a)*r;
+    const y = cy + Math.sin(a)*r;
+    i===0 ? rctx.moveTo(x,y) : rctx.lineTo(x,y);
+  }
+  rctx.closePath();
+  const grd = rctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  grd.addColorStop(0,'rgba(0,240,255,0.35)');
+  grd.addColorStop(0.6,'rgba(180,77,255,0.25)');
+  grd.addColorStop(1,'rgba(255,45,149,0.18)');
+  rctx.fillStyle = grd;
+  rctx.fill();
+  rctx.strokeStyle = '#00f0ff';
+  rctx.lineWidth = 2;
+  rctx.shadowBlur = 18;
+  rctx.shadowColor = '#00f0ff';
+  rctx.stroke();
+  rctx.shadowBlur = 0;
+
+  // vertex dots
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 - Math.PI/2;
+    const r = R * radarData[i].val * eased;
+    const x = cx + Math.cos(a)*r;
+    const y = cy + Math.sin(a)*r;
+    rctx.beginPath();
+    rctx.arc(x,y,5,0,Math.PI*2);
+    rctx.fillStyle = '#ff2d95';
+    rctx.shadowBlur = 12;
+    rctx.shadowColor = '#ff2d95';
+    rctx.fill();
+    rctx.shadowBlur = 0;
+  }
+
+  // rotating sweep (radar scan)
+  const sweepA = (Date.now()/1500) * Math.PI*2;
+  const sweepW = 0.42; // 弧度宽度 (~24°)
+  rctx.save();
+  rctx.translate(cx,cy);
+  rctx.rotate(sweepA);
+
+  // 1. 扇形尾迹（从透明到亮）
+  const sg = rctx.createLinearGradient(0,0,R,0);
+  sg.addColorStop(0,'rgba(0,240,255,0)');
+  sg.addColorStop(0.55,'rgba(0,240,255,0.06)');
+  sg.addColorStop(0.88,'rgba(0,240,255,0.28)');
+  sg.addColorStop(1,'rgba(120,255,255,0.55)');
+  rctx.fillStyle = sg;
+  rctx.beginPath();
+  rctx.moveTo(0,0);
+  rctx.arc(0,0,R,-sweepW,0);
+  rctx.closePath();
+  rctx.fill();
+
+  // 2. 扫描前沿亮线
+  rctx.strokeStyle = 'rgba(180,255,255,0.95)';
+  rctx.lineWidth = 2;
+  rctx.shadowBlur = 14;
+  rctx.shadowColor = '#00f0ff';
+  rctx.beginPath();
+  rctx.moveTo(0,0);
+  rctx.lineTo(R,0);
+  rctx.stroke();
+  rctx.shadowBlur = 0;
+
+  // 3. 前沿小亮点（最外端）
+  rctx.fillStyle = '#a8ffff';
+  rctx.shadowBlur = 18;
+  rctx.shadowColor = '#00f0ff';
+  rctx.beginPath();
+  rctx.arc(R, 0, 4, 0, Math.PI*2);
+  rctx.fill();
+  rctx.shadowBlur = 0;
+
+  rctx.restore();
+
+  // axis-end labels: name + grade
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 - Math.PI/2;
+    const lx = cx + Math.cos(a) * labelR;
+    const ly = cy + Math.sin(a) * labelR;
+    const data = radarData[i];
+    const col = gradeColor[data.grade] || '#00f0ff';
+
+    rctx.textAlign = 'center';
+    rctx.textBaseline = 'middle';
+
+    // name (small, dim)
+    rctx.font = '500 22px "Noto Sans SC", "Share Tech Mono", sans-serif';
+    rctx.fillStyle = '#a8b0d0';
+    rctx.shadowColor = 'transparent';
+    rctx.fillText(data.label, lx, ly - 22);
+
+    // grade (large, glowing, colored)
+    rctx.font = '900 60px "Orbitron", "Share Tech Mono", monospace';
+    rctx.shadowBlur = 18;
+    rctx.shadowColor = col;
+    rctx.fillStyle = col;
+    rctx.fillText(data.grade, lx, ly + 22);
+    rctx.shadowBlur = 0;
+  }
+}
+let radarStart = null;
+function radarAnim(ts){
+  if(!radarStart) radarStart = ts;
+  const elapsed = (ts - radarStart) / 1600;
+  drawRadar(elapsed);
+  requestAnimationFrame(radarAnim);
+}
+setTimeout(()=>requestAnimationFrame(radarAnim), 1800);
+
+/* ====== FADE IN ====== */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in') });
+}, {threshold: 0.12});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+/* ====== CURSOR FX ====== */
+const fx = document.getElementById('cursorFx');
+let fxX = 0, fxY = 0, mouseX = 0, mouseY = 0;
+window.addEventListener('mousemove', e=>{
+  mouseX = e.clientX; mouseY = e.clientY;
+});
+function fxTick(){
+  fxX += (mouseX - fxX)*0.18;
+  fxY += (mouseY - fxY)*0.18;
+  fx.style.left = fxX + 'px';
+  fx.style.top = fxY + 'px';
+  requestAnimationFrame(fxTick);
+}
+fxTick();
+document.querySelectorAll('a, .tag, .intcard, .gitem, .card').forEach(el=>{
+  el.addEventListener('mouseenter', ()=>fx.classList.add('hover'));
+  el.addEventListener('mouseleave', ()=>fx.classList.remove('hover'));
+});
+
+/* ====== glitch random on hero name ====== */
+const heroName = document.querySelector('.hero-text h1');
+const original = heroName.textContent;
+const glitchChars = '!<>-_\\/[]{}—=+*^?#________';
+function glitchLoop(){
+  if(Math.random() > 0.92){
+    let out = '';
+    for(let i=0;i<original.length;i++){
+      out += Math.random() > 0.85 ? glitchChars[Math.floor(Math.random()*glitchChars.length)] : original[i];
+    }
+    heroName.textContent = out;
+    setTimeout(()=>{ heroName.textContent = original; }, 90);
+  }
+  setTimeout(glitchLoop, 800 + Math.random()*1500);
+}
+setTimeout(glitchLoop, 2200);
+</script>
 </body>
 </html>
