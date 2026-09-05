@@ -479,33 +479,14 @@ footer .blink{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
   <div class="stitle fade"><span class="num">01</span> ABILITY MATRIX</div>
   <div class="ability fade">
     <div class="radar-wrap">
-      <canvas id="radar" width="600" height="600"></canvas>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section>
-  <div class="stitle fade"><span class="num">02</span> CONTACT</div>
-  <div class="card fade">
-    <span class="card-id">CONTACT.SYS</span>
-    <div class="wx-wrap" style="margin-top:10px">
-      <img src="微信联系方式.jpg" alt="wechat qr">
-      <div class="wx-info">
-        <span class="nm">// Scan the QR code on the left to connect</span><br>
-        <span class="dim">PROTOCOL //</span> WECHAT_REV2<br>
-        <span class="dim">WX_ID //</span> <span class="nm">fishfishfish_091214</span><br>
-        <span class="dim">REGION //</span> HAIDIAN.BJ.CN<br>
-        <span class="dim">LATENCY //</span> <span style="color:var(--green)">~ 1ms</span><br>
-        <span class="dim">STATUS //</span> <span style="color:var(--green)">● ACCEPTING PACKETS</span>
-      </div>
+      <canvas id="radar" width="900" height="900"></canvas>
     </div>
   </div>
 </section>
 
 <!-- TIMELINE -->
 <section>
-  <div class="stitle fade"><span class="num">03</span> LOG.STREAM</div>
+  <div class="stitle fade"><span class="num">02</span> LOG.STREAM</div>
   <div class="tl fade">
     <div class="tl-item">
       <div class="tl-head">
@@ -558,7 +539,7 @@ footer .blink{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
 
 <!-- GITHUB -->
 <section>
-  <div class="stitle fade"><span class="num">04</span> GitHub // REPO.LINK</div>
+  <div class="stitle fade"><span class="num">03</span> GitHub // REPO.LINK</div>
   <div class="card fade">
     <span class="card-id">GH_NODE</span>
     <div class="gh-card" style="margin-top:8px">
@@ -581,7 +562,7 @@ footer .blink{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
 
 <!-- ABOUT -->
 <section>
-  <div class="stitle fade"><span class="num">05</span> PERSONAL.SYS</div>
+  <div class="stitle fade"><span class="num">04</span> PERSONAL.SYS</div>
   <div class="intgrid fade">
     <div class="intcard">
       <div class="ico">// 01 · MUSIC_MODULE</div>
@@ -603,7 +584,7 @@ footer .blink{color:var(--green);text-shadow:0 0 6px rgba(57,255,20,0.5)}
 
 <!-- GALLERY -->
 <section>
-  <div class="stitle fade"><span class="num">06</span> ARCHIVE.VIEW</div>
+  <div class="stitle fade"><span class="num">05</span> ARCHIVE.VIEW</div>
   <div class="gallery fade">
     <a href="bhml.jpg" target="_blank" class="gitem"><img src="bhml.jpg" alt="BHML Poster"></a>
     <a href="电台.jpg" target="_blank" class="gitem"><img src="电台.jpg" alt="Late-Night Radio"></a>
@@ -697,15 +678,15 @@ setInterval(tick, 1000); tick();
 const rc = document.getElementById('radar');
 const rctx = rc.getContext('2d');
 // 降一档内部像素（620px 显示 / 600 内部 ≈ 1:1 映射，每帧 blit 1.44MB 而非 3.24MB）
-const RADAR_W = 600, RADAR_H = 600;
+const RADAR_W = 900, RADAR_H = 900;
 const radarData = [
-  {label:'Software Engineering', grade:'C', val:0.40},
-  {label:'Hardware Engineering', grade:'C', val:0.45},
-  {label:'Design / Wild Ideas', grade:'A', val:0.90},
-  {label:'Late-Night Stamina', grade:'A', val:0.88},
-  {label:'Theory Knowledge', grade:'B', val:0.62},
-  {label:'Tool Mastery', grade:'B', val:0.68},
-  {label:'Presentation / Communication', grade:'A', val:0.85},
+  {label:'Software', grade:'C', val:0.40},
+  {label:'Hardware', grade:'C', val:0.45},
+  {label:'Design', grade:'A', val:0.90},
+  {label:'Stamina', grade:'A', val:0.88},
+  {label:'Theory', grade:'B', val:0.62},
+  {label:'Tools', grade:'B', val:0.68},
+  {label:'Presentation', grade:'A', val:0.85},
 ];
 const gradeColor = { A:'#b44dff', B:'#0080ff', C:'#39ff14' };
 
@@ -716,8 +697,8 @@ radarOff.height = RADAR_H;
 const octx = radarOff.getContext('2d');
 (function buildStaticLayer(){
   const cx = RADAR_W/2, cy = RADAR_H/2;
-  const R = Math.min(RADAR_W, RADAR_H) * 0.32;
-  const labelR = Math.min(RADAR_W, RADAR_H) * 0.42;
+  const R = Math.min(RADAR_W, RADAR_H) * 0.28;
+  const labelR = Math.min(RADAR_W, RADAR_H) * 0.44;
   const n = radarData.length;
 
   // concentric grid (heptagon)
@@ -757,13 +738,13 @@ const octx = radarOff.getContext('2d');
     const col = gradeColor[data.grade] || '#00f0ff';
 
     // name (small, dim)
-    octx.font = '500 22px "Noto Sans SC", "Share Tech Mono", sans-serif';
+    octx.font = '500 16px "Share Tech Mono", sans-serif';
     octx.fillStyle = '#a8b0d0';
     octx.shadowColor = 'transparent';
     octx.fillText(data.label, lx, ly - 22);
 
     // grade (large, glowing, colored) - 画在离屏缓存上,只画一次,shadowBlur 0 成本
-    octx.font = '900 60px "Orbitron", "Share Tech Mono", monospace';
+    octx.font = '900 48px "Orbitron", "Share Tech Mono", monospace';
     octx.shadowBlur = 22;
     octx.shadowColor = col;
     octx.fillStyle = col;
@@ -792,7 +773,7 @@ function radarAnim(ts){
   const elapsed = (ts - radarStart) / 1600;
   const w = RADAR_W, h = RADAR_H;
   const cx = w/2, cy = h/2;
-  const R = Math.min(w,h)*0.32;
+  const R = Math.min(w,h)*0.28;
   const n = radarData.length;
 
   // 1) 静态层（缓存）
